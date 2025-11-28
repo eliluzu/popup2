@@ -1,0 +1,184 @@
+/*
+ * =========================================
+ * 1. DEFINICIÓN DE FUENTES PERSONALIZADAS
+ * =========================================
+ * ESTO ES LO QUE FALTABA: Define el nombre de la fuente y su ubicación.
+ * AJUSTA LA RUTA si tu archivo no se llama PilatWideBold.woff2
+ */
+@font-face {
+    font-family: 'PilatWideBoldWeb';
+    src: url('fonts/PilatWide-Bold.woff2') format('woff2'),
+        url('fonts/PilatWide-Bold.woff') format('woff');
+    font-weight: 700;
+    /* Asegúrate que este peso coincide con la fuente Bold */
+    font-style: normal;
+    font-display: swap;
+}
+
+/* * NOTA: Si usas PilatWeb y PilatDemiWeb, debes definir sus propios @font-face aquí.
+ * Solo mantendré PilatWideBoldWeb para enfocarnos en la solución.
+ */
+
+/*
+ * =========================================
+ * 2. ESTILOS GENERALES
+ * =========================================
+ */
+
+/* Aplicamos la fuente base (PilatWideBoldWeb) a todo el cuerpo para el texto más grueso */
+body {
+    font-family: 'PilatWideBoldWeb', Arial, sans-serif;
+}
+
+/*
+ * =========================================
+ * 3. ESTILOS DEL POPUP BASE
+ * =========================================
+ */
+#popup-overlay {
+    /* Inicialmente oculto por JS, pero mostrable por la clase 'active' */
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    z-index: 1000;
+
+    /* Centrado */
+    justify-content: center;
+    align-items: center;
+}
+
+#popup-overlay.active {
+    display: flex;
+    /* Muestra el overlay al añadir la clase 'active' */
+}
+
+#popup-content {
+    background-color: transparent;
+    color: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+    width: 90%;
+    max-width: 500px;
+    overflow: hidden;
+    position: relative;
+    /* Clave para posicionar la X y el botón */
+
+    /* Animación de entrada */
+    transform: scale(0.8);
+    opacity: 0;
+    transition: transform 0.3s ease-out, opacity 0.3s ease-out;
+}
+
+#popup-overlay.active #popup-content {
+    transform: scale(1);
+    opacity: 1;
+}
+
+/* La imagen es la base visual */
+.popup-background-img {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 8px;
+}
+
+/*
+ * =========================================
+ * 4. BOTÓN DE CIERRE (X)
+ * =========================================
+ */
+.close-button {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+
+    background: none;
+    border: none;
+    color: white;
+    /* Usamos la fuente definida para consistencia en la X */
+    font-family: 'PilatWideBoldWeb', Arial, sans-serif;
+    font-size: 1.8em;
+    cursor: pointer;
+    line-height: 1;
+    padding: 5px;
+    /* Área de clic mejorada */
+    z-index: 10;
+    text-shadow: 0 0 5px rgba(0, 0, 0, 0.8);
+}
+
+/*
+ * =========================================
+ * 5. BOTÓN DE ACCIÓN (CONOCÉ LA NUEVA HERRAMIENTA)
+ * =========================================
+ */
+.btn-nueva-herramienta {
+    position: absolute;
+    bottom: 25px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 10;
+
+    /* Dimensiones */
+    width: 90%;
+    max-width: 90%;
+
+    /* Estilo visual y tipografía */
+    background-color: #3d3b94;
+    color: white;
+    text-decoration: none;
+
+    /* APLICACIÓN DE FUENTE: Ahora usa la fuente definida arriba */
+    font-family: 'PilatWideBoldWeb', Arial, sans-serif;
+    font-weight: 700;
+
+    font-size: 0.9em;
+    padding: 15px 10px;
+    border-radius: 6px;
+
+    /* Formato de texto */
+    display: block;
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    white-space: nowrap;
+
+    /* Transición */
+    transition: background-color 0.2s ease;
+}
+
+.btn-nueva-herramienta:hover {
+    background-color: #5553a0;
+}
+
+/*
+ * =========================================
+ * 6. MEDIA QUERIES (RESPONSIVIDAD)
+ * =========================================
+ */
+
+/* Ajuste general para dispositivos más pequeños */
+@media (max-width: 600px) {
+    #popup-content {
+        width: 95%;
+        margin: 10px;
+    }
+}
+
+/* Ajustes finos para móviles (ancho < 450px) */
+@media (max-width: 450px) {
+    .close-button {
+        top: 10px;
+        right: 10px;
+        font-size: 1.5em;
+    }
+
+    .btn-nueva-herramienta {
+        bottom: 15px;
+        padding: 12px 10px;
+        font-size: 0.8em;
+    }
+}
